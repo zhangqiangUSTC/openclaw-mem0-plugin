@@ -54,7 +54,7 @@ interface AddOptions {
   user_id: string;
   run_id?: string;
   custom_instructions?: string;
-  custom_categories?: Array<Record<string, string>>;
+  custom_categories?: Record<string, string>;
   enable_graph?: boolean;
   output_format?: string;
 }
@@ -67,6 +67,7 @@ interface SearchOptions {
   limit?: number;
   keyword_search?: boolean;
   reranking?: boolean;
+  filters?: Record<string, unknown>;
 }
 
 interface ListOptions {
@@ -162,7 +163,9 @@ class PlatformProvider implements Mem0Provider {
 
   async search(query: string, options: SearchOptions): Promise<MemoryItem[]> {
     await this.ensureClient();
-    const opts: Record<string, unknown> = { user_id: options.user_id };
+    const filters: Record<string, unknown> = { user_id: options.user_id };
+    if (options.run_id) filters.run_id = options.run_id;
+    const opts: Record<string, unknown> = { user_id: options.user_id, filters};
     if (options.run_id) opts.run_id = options.run_id;
     if (options.top_k != null) opts.top_k = options.top_k;
     if (options.threshold != null) opts.threshold = options.threshold;
@@ -627,7 +630,7 @@ const memoryPlugin = {
       if (runId) opts.run_id = runId;
       if (cfg.mode === "platform") {
         opts.custom_instructions = cfg.customInstructions;
-        opts.custom_categories = categoriesToArray(cfg.customCategories);
+        opts.custom_categories = cfg.customCategories;
         opts.enable_graph = cfg.enableGraph;
         opts.output_format = "v1.1";
       }
