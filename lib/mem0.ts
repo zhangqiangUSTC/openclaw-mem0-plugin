@@ -196,7 +196,7 @@ export class MemoryClient {
 
   async getAll(options: Record<string, any> = {}) {
     this._validateOrgProject();
-    const { api_version, page, page_size, ...otherOptions } = options;
+    let { api_version, page, page_size, ...otherOptions } = options;
     if (this.organizationName != null && this.projectName != null) {
       otherOptions.org_name = this.organizationName;
       otherOptions.project_name = this.projectName;
@@ -213,6 +213,7 @@ export class MemoryClient {
       if (otherOptions.org_name) delete otherOptions.org_name;
       if (otherOptions.project_name) delete otherOptions.project_name;
     }
+	api_version = "v2";
     if (api_version === "v2") {
       let url = paginated_response ? `${this.host}/v2/memories/?${appendedParams}` : `${this.host}/v2/memories/`;
       return this._fetchWithErrorHandling(url, {
@@ -231,7 +232,7 @@ export class MemoryClient {
 
   async search(query: string, options: Record<string, any> = {}) {
     this._validateOrgProject();
-    const { api_version, ...otherOptions } = options;
+    let { api_version, ...otherOptions } = options;
     const payload: any = { query, ...otherOptions };
     if (this.organizationName != null && this.projectName != null) {
       payload.org_name = this.organizationName;
@@ -243,6 +244,7 @@ export class MemoryClient {
       if (payload.org_name) delete payload.org_name;
       if (payload.project_name) delete payload.project_name;
     }
+	api_version = "v2";
     const endpoint = api_version === "v2" ? "/v2/memories/search/" : "/v1/memories/search/";
     const response = await this._fetchWithErrorHandling(
       `${this.host}${endpoint}`,

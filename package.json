@@ -1,14 +1,14 @@
 {
-  "name": "@xray2016/openclaw-mem0-plugin",
-  "version": "1.0.9",
+  "name": "@zhgqiang/openclaw-mem0-plugin",
+  "version": "1.2.1",
   "description": "OpenClaw memory plugin using mem0",
-  "homepage": "https://github.com/xRay2016/openclaw-mem0#readme",
+  "homepage": "https://github.com/zhangqiangUSTC/openclaw-mem0#readme",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xRay2016/openclaw-mem0.git"
+    "url": "git+https://github.com/zhangqiangUSTC/openclaw-mem0.git"
   },
   "main": "index.js",
   "type": "module",
@@ -42,7 +42,7 @@
       "./index.ts"
     ]
   },
-  "author": "xray20161@gmail.com",
+  "author": "jingrui.zq@alibaba-inc.com",
   "license": "Apache-2.0",
   "devDependencies": {
     "jest": "^30.2.0",

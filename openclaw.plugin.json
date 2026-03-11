@@ -1,7 +1,7 @@
 {
   "id": "openclaw-mem0-plugin",
   "description": "OpenClaw memory plugin using mem0",
-  "homepage": "https://github.com/xRay2016/openclaw-mem0-plugin",
+  "homepage": "https://github.com/zhangqiangUSTC/openclaw-mem0-plugin",
   "kind": "memory",
   "uiHints": {
     "mode": {

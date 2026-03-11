@@ -184,12 +184,15 @@ class PlatformProvider implements Mem0Provider {
 
   async getAll(options: ListOptions): Promise<MemoryItem[]> {
     await this.ensureClient();
-    const opts: Record<string, unknown> = { user_id: options.user_id };
+	const filters: Record<string, unknown> = { user_id: options.user_id };
+    if (options.run_id) filters.run_id = options.run_id;
+    const opts: Record<string, unknown> = { user_id: options.user_id, filters};
     if (options.run_id) opts.run_id = options.run_id;
     if (options.page_size != null) opts.page_size = options.page_size;
 
     const results = await this.client.getAll(opts);
-    if (Array.isArray(results)) return results.map(normalizeMemoryItem);
+    if (Array.isArray(results)) return 
+	results.map(normalizeMemoryItem);
     // Some versions return { results: [...] }
     if (results?.results && Array.isArray(results.results))
       return results.results.map(normalizeMemoryItem);
